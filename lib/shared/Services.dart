@@ -1,96 +1,98 @@
-// import 'dart:convert';
-// import 'package:flutter/cupertino.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:http/http.dart' as http;
-//
-//
-//
-//
-// getparam() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   var adress = prefs.getString("address");
-//   // ignore: non_constant_identifier_names
-//   var stk_id = prefs.getString('stk_id');
-//   String url =
-//       'http://$adress/php_rest_myblog/api/data/dyn_sel.php?user=view&password=1&select=select%20(select%20org_id%20from%20branches%20where%20comp_code=b.comp_code%20and%20branch_code=b.branch_code)%20org_id,comp_code,branch_code%20from%20branches%20b%20where%20comp_code=(select%20stk_cmp_code%20from%20stk_stocks%20where%20stk_id=$stk_id)%20and%20branch_code=(select%20stk_br_code%20from%20stk_stocks%20where%20stk_id=$stk_id)';
-//   http.Response response = await http.get(url);
-//   debugPrint(url);
-//   debugPrint(response.body);
-//   return json.decode(response.body);
-// }
-//
-// getdata() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   var name = prefs.getString('name');
-//   var adress = prefs.getString("address");
-//   var pass = prefs.getString("password");
-//   String url =
-//   // 'http://41.32.222.242/php_rest_myblog/api/data/dyn_sel.php?user=view&password=1&select=select count(*) from hr_emp where emp_id=2 and v_flex10=123';
-//       'http://$adress/php_rest_myblog/api/data/dyn_sel.php?user=view&password=1&select=select count(*) from hr_emp where emp_id=$name and v_flex10=$pass';
-//   http.Response response = await http.get(url);
-//   return json.decode(response.body);
-// }
-//
-// getsysdate() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   var adress = prefs.getString("address");
-//   String date =
-//       'http://$adress/php_rest_myblog/api/data/dyn_sel.php?user=view&password=1&select=select%20sysdate%20from%20dual';
-//   http.Response response = await http.get(date);
-//   return json.decode(response.body);
-// }
-//
-// getenddate() async {
-//   // WidgetsFlutterBinding.ensureInitialized();
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   // var name = prefs.getString('name');
-//   var adress = prefs.getString("address");
-//   String date =
-//   // 'http://41.32.222.242/php_rest_myblog/api/data/dyn_sel.php?user=view&password=1&select=select%20to_char(sysdate,%27hh24:mi%27)%20end_time%20from%20dual';
-//       'http://$adress/php_rest_myblog/api/data/dyn_sel.php?user=view&password=1&select=select%20to_char(sysdate,%27hh24:mi%27)%20end_time%20from%20dual';
-//   http.Response response = await http.get(date);
-//   return json.decode(response.body);
-// }
-//
-// getstartdate() async {
-//   // WidgetsFlutterBinding.ensureInitialized();
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   // var name = prefs.getString('name');
-//   var adress = prefs.getString("address");
-//
-//   String date =
-//   // 'http://41.32.222.242/php_rest_myblog/api/data/dyn_sel.php?user=view&password=1&select=select%20to_char(sysdate,%27hh24:mi%27)%20start_time%20from%20dual';
-//       'http://$adress/php_rest_myblog/api/data/dyn_sel.php?user=view&password=1&select=select%20to_char(sysdate,%27hh24:mi%27)%20start_time%20from%20dual';
-//   http.Response response = await http.get(date);
-//   return json.decode(response.body);
-// }
-//
-// chkenddate() async {
-//   // WidgetsFlutterBinding.ensureInitialized();
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   // var name = prefs.getString('name');
-//   var adress = prefs.getString("address");
-//   String url =
-//       "http://$adress/php_rest_myblog/api/data/dyn_sel.php?user=view&password=1&select=select%20count(*)%20cnt%20from%20mob_work_days%20where%20emp_id%20=%203%20and%20work_date%20=%20%2708-JUN-21%27%20and%20work_type=1%20and%20end_time%20is%20not%20null";
-//   http.Response response = await http.get(url);
-//   return json.decode(response.body);
-// }
-//
-// chkstartdate() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   var name = prefs.getString('name');
-//   var adress = prefs.getString("address");
-//   Map datemap = await getsysdate();
-//   String chkdate = datemap["data"][0]["sysdate"];
-//   String url =
-//   // 'http://41.32.222.242/php_rest_myblog/api/data/dyn_sel.php?user=view&password=1&select=select%20count(*)%20cnt%20from%20mob_work_days%20where%20emp_id%20=%202%20and%20work_date%20=%20%2708-JUN-21%27%20and%20work_type=1';
-//   //     'http://$adress/php_rest_myblog/api/data/dyn_sel.php?user=view&password=1&select=select%20count(*)%20cnt%20from%20mob_work_days%20where%20emp_id%20=%20$name%20and%20work_date%20=%20%2708-JUN-21%27%20and%20work_type=1';
-//       'http://$adress/php_rest_myblog/api/data/dyn_sel.php?user=view&password=1&select=select%20count(*)%20cnt%20from%20mob_work_days%20where%20emp_id%20=%20$name%20and%20work_date%20=%20%27$chkdate%27%20and%20work_type=1';
-//   http.Response response = await http.get(url);
-//   return json.decode(response.body);
-// }
-//
+import 'dart:convert';
+import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'package:view_selfservice/model/models.dart';
+
+Payload payloadFromJson(String str) => Payload.fromJson(json.decode(str));
+
+String payloadToJson(Payload data) => json.encode(data.toJson());
+Payload payload;
+Payload payload2;
+Payload payload3;
+String ipaaddress;
+String userlogin;
+String passwordlogin;
+String hrgroup;
+
+
+
+
+
+getyear()async{
+  debugPrint("yeaaar");
+
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  ipaaddress= prefs.getString("address");
+  passwordlogin= prefs.getString("passwordlogin");
+  userlogin= prefs.getString("userlogin");
+  hrgroup= prefs.getString("Hrgrop");
+  debugPrint("user:;"+passwordlogin+userlogin+hrgroup);
+  String url =(
+      "http://$ipaaddress/php_rest_myblog/api/data/dyn_sel.php?user=$userlogin&password=$passwordlogin&select=select%20period_year%20from%20user_year%20where%20user_name='$userlogin'order%20by%20%20period_year"
+  );
+
+  http.Response response = await http.get(url);
+  debugPrint(url);
+  debugPrint(response.body);
+  return json.decode(response.body);
+}
+getsysdate()async{
+  debugPrint("sysdate");
+
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  ipaaddress= prefs.getString("address");
+  passwordlogin= prefs.getString("passwordlogin");
+  userlogin= prefs.getString("userlogin");
+  hrgroup= prefs.getString("Hrgrop");
+  debugPrint("user:;"+passwordlogin+userlogin+hrgroup);
+  String url =(
+      "http://$ipaaddress/php_rest_myblog/api/data/dyn_sel.php?user=$userlogin&password=$passwordlogin&select=select%20to_char(sysdate)sys%20from%20dual"
+  );
+
+  http.Response response = await http.get(url);
+  debugPrint(url);
+  debugPrint(response.body);
+  return json.decode(response.body);
+}
+
+
+getloan()async{
+  debugPrint("goooo");
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  ipaaddress= prefs.getString("address");
+  passwordlogin= prefs.getString("passwordlogin");
+  userlogin= prefs.getString("userlogin");
+  hrgroup= prefs.getString("Hrgrop");
+  Map periodyear = await getyear();
+  String yearperiod = periodyear["data"][0]["period_year"];
+  String data =
+      "http://$ipaaddress/php_rest_myblog/api/data/dyn_sel.php?user=$userlogin&password=$passwordlogin&select=select%20nvl(max(nvl(loan_req_code,0)),0)%20+%201%20loan_req_code%20from%20hr_pay_emp_loans_req%20where%20hr_emp_group_code%20=%201%20and%20to_char(loan_start_date,%27yyyy%27)%20=%20$yearperiod";
+
+  debugPrint("url:"+data);
+  http.Response response = await http.get(data);
+  debugPrint(response.body);
+  return json.decode(response.body);
+
+
+
+
+}
+
+loan_req_id() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  ipaaddress= prefs.getString("address");
+  passwordlogin= prefs.getString("passwordlogin");
+  userlogin= prefs.getString("userlogin");
+  hrgroup= prefs.getString("Hrgrop");
+  http.Response loanId = await http.get('http://$ipaaddress/php_rest_myblog/api/data/dyn_sel.php?user=$userlogin&password=$passwordlogin&select=select%20create_id(%27hr_pay_emp_loans_req%27,%27loan_req_id%27)%20loan_req_id%20from%20dual');
+
+  return json.decode(loanId.body);
+}
+
+
+
+

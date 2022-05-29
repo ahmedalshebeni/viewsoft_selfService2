@@ -9,6 +9,7 @@ class TestProvider with ChangeNotifier {
   Payload payload2;
   Payload payload3;
   Payload payload4;
+  Payload payload5;
   String _ipaaddress;
   String _userLogin;
   String _passwordLogin;
@@ -16,6 +17,20 @@ class TestProvider with ChangeNotifier {
   Datum dropdownValue2;
   Datum dropdownValue3;
   Datum dropdownValue4;
+  // Datum dropdownValue5;
+  // ignore: non_constant_identifier_names
+  dynamic Hrgrop;
+  // ignore: non_constant_identifier_names
+  dynamic Hrempgrop;
+
+  Locale _locale = Locale('ar');
+
+  Locale get locale => _locale;
+
+  void changeLocale(Locale newLocale) {
+    _locale = newLocale;
+    notifyListeners();
+  }
 
   Payload payloadFromJson(String str) => Payload.fromJson(json.decode(str));
 
@@ -61,7 +76,7 @@ class TestProvider with ChangeNotifier {
     _ipaaddress = address;
     _userLogin = userlogin;
     _passwordLogin = passwordlogin;
-
+    Hrgrop=Hrgrop;
     notifyListeners();
 
     final SharedPreferences sharedPreferences =
@@ -69,6 +84,7 @@ class TestProvider with ChangeNotifier {
     sharedPreferences.setString('address', address);
     sharedPreferences.setString('userlogin', userlogin);
     sharedPreferences.setString('passwordlogin', passwordlogin);
+    sharedPreferences.setString('Hrgrop', Hrgrop);
   }
 
   Future<void> logout() async {
@@ -129,15 +145,15 @@ String url =
     String GetEmp = Emp["data"][0]["emp_id"];
     String check = datamap["data"][0]["count(*)"];
     // ignore: non_constant_identifier_names
-    String Hrgrop = hrGroup["data"][0]["hr_group_code"];
+     Hrgrop = hrGroup["data"][0]["hr_group_code"];
     // ignore: non_constant_identifier_names
-    String Hrempgrop = hrGroup["data"][0]["hr_emp_group_code"];
+     Hrempgrop = hrGroup["data"][0]["hr_emp_group_code"];
     debugPrint("Hrgrop:"+Hrgrop);
     debugPrint("Hrempgrop:"+Hrempgrop);
     debugPrint(check);
     debugPrint(GetEmp);
     if (check != '0' && GetEmp != "0") {
-      await setpref(address, passwordlogin, userlogin);
+      await setpref(address, userlogin,passwordlogin);
 
       // Navigator.of(context).pushNamed('/main');
       // Navigator.pushReplacementNamed(context, '/First');
@@ -152,17 +168,20 @@ String url =
   Future<dynamic> getDatainfo(String ip, String user0, String password0) async {
     try {
       var response = await http.get(
-          "http://$ip/php_rest_myblog/api/data/dyn_sel.php?user=$user0&password=$password0&select=select%20org_id,decode(1,2,eorg_name,org_name)%20group_name%20from%20orgs%20where%20org_id%20in%20(select%20%20org_id%20from%20user_org%20where%20user_name%20=%20%27view%27)%20order%20by%20org_id");
+          "http://$ip/php_rest_myblog/api/data/dyn_sel.php?user=$user0&password=$password0&select=select%20org_id,decode(1,2,eorg_name,org_name)%20group_name%20from%20orgs%20where%20org_id%20in%20(select%20%20org_id%20from%20user_org%20where%20user_name%20=%20%27$user0%27)%20order%20by%20org_id");
       var res = await http.get(
-          "http://$ip/php_rest_myblog/api/data/dyn_sel.php?user=$user0&password=$password0&select=select%20comp_code,decode(1,2,ecomp_name,comp_name)%20comp_name%20from%20company%20where%20comp_code%20in(select%20comp_code%20from%20user_comp%20where%20user_name=%27view%27%20and%20org_id=1)and%20org_id=1%20order%20by%20comp_code");
+          "http://$ip/php_rest_myblog/api/data/dyn_sel.php?user=$user0&password=$password0&select=select%20comp_code,decode(1,2,ecomp_name,comp_name)%20comp_name%20from%20company%20where%20comp_code%20in(select%20comp_code%20from%20user_comp%20where%20user_name=%27$user0%27%20and%20org_id=1)and%20org_id=1%20order%20by%20comp_code");
       var resp = await http.get(
-          "http://$ip/php_rest_myblog/api/data/dyn_sel.php?user=$user0&password=$password0&select=select%20%20branch_code,decode(1,2,ebranch_name,branch_name)%20branch_name%20from%20branches%20where%20org_id=1%20and%20comp_code=1%20and%20branch_code%20in%20(select%20branch_code%20from%20user_branch%20where%20user_name=%27view%27%20and%20org_id=1%20and%20comp_code=1%20)order%20by%20branch_code");
+          "http://$ip/php_rest_myblog/api/data/dyn_sel.php?user=$user0&password=$password0&select=select%20%20branch_code,decode(1,2,ebranch_name,branch_name)%20branch_name%20from%20branches%20where%20org_id=1%20and%20comp_code=1%20and%20branch_code%20in%20(select%20branch_code%20from%20user_branch%20where%20user_name=%27$user0%27%20and%20org_id=1%20and%20comp_code=1%20)order%20by%20branch_code");
       var year=await http.get(
           "http://$ip/php_rest_myblog/api/data/dyn_sel.php?user=$user0&password=$password0&select=select%20period_year%20from%20user_year%20where%20user_name='$user0'order%20by%20%20period_year");
+     var loan=await http.get(
+          "http://$ip/php_rest_myblog/api/data/dyn_sel.php?user=$user0&password=$password0&select=select%20loan_code,decode(1,2,eloan_name,loan_name)%20loan_name%20from%20hr_pay_loans%20where%20hr_group_code%20=%201%20order%20by%20loan_code");
       payload = payloadFromJson(response.body);
       payload2 = payloadFromJson(res.body);
       payload3 = payloadFromJson(resp.body);
       payload4=payloadFromJson(year.body);
+      // payload5=payloadFromJson(loan.body);
       dropdownValue = payload.data[0];
       dropdownValue2 = payload2.data[0];
       dropdownValue3 = payload3.data[0];
@@ -175,3 +194,5 @@ String url =
     }
   }
 }
+
+

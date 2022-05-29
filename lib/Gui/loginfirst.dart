@@ -15,7 +15,7 @@ TextEditingController passwordlogin = TextEditingController();
 
 // ignore: camel_case_types
 class firstState extends State<first> {
-  dynamic orgs;
+  // dynamic orgs;
 
   bool isInit = true;
 
@@ -51,6 +51,10 @@ class firstState extends State<first> {
                                   style: const TextStyle(
                                       fontSize: 15.0, color: Colors.deepPurple),
                                   controller: ipaddress,
+                                  // onSubmitted: (s) {
+                                  //   testProvider.getDatainfo(ipaddress.text,
+                                  //       userlogin.text, passwordlogin.text);
+                                  // },
                                   decoration: const InputDecoration(
                                     labelText: 'Ip address',
                                     icon: Icon(
@@ -65,10 +69,10 @@ class firstState extends State<first> {
                                   style: const TextStyle(
                                       fontSize: 15.0, color: Colors.deepPurple),
                                   controller: userlogin,
-                                  onSubmitted: (s) {
-                                    testProvider.getDatainfo(ipaddress.text,
-                                        userlogin.text, passwordlogin.text);
-                                  },
+                                  // onSubmitted: (s) {
+                                  //   testProvider.getDatainfo(ipaddress.text,
+                                  //       userlogin.text, passwordlogin.text);
+                                  // },
                                   decoration: const InputDecoration(
                                     labelText: ' User Name',
                                     icon: Icon(
@@ -133,9 +137,11 @@ class firstState extends State<first> {
                                 //   obscureText: true,
                                 // ),
                                 (testProvider.payload == null &&
-                                        testProvider.payload2 == null &&
-                                        testProvider.payload3 == null &&
-                                        testProvider.payload4 == null)
+                                  testProvider.payload2 == null &&
+                                  testProvider.payload3 == null &&
+                                  testProvider.payload4 == null
+                                    // &&testProvider.payload5==null
+                                    )
                                     ? Container()
                                     : Column(
                                         children: [
@@ -145,8 +151,7 @@ class firstState extends State<first> {
                                                 labelText: 'ChooseOrg',
                                               ),
                                               child: DropdownButton<dynamic>(
-                                                value:
-                                                    testProvider.dropdownValue,
+                                                value: testProvider.dropdownValue,
                                                 isExpanded: true,
                                                 icon: Icon(
                                                     Icons.check_circle_outline),
@@ -160,22 +165,13 @@ class firstState extends State<first> {
                                                 ),
                                                 onChanged: (newValue) {
                                                   setState(() {
-                                                    testProvider.dropdownValue =
-                                                        newValue;
-                                                    debugPrint(testProvider
-                                                        .dropdownValue.org_id);
+                                                    testProvider.dropdownValue = newValue;
+                                                    debugPrint(testProvider.dropdownValue.org_id);
                                                     debugPrint(ipaddress.text);
                                                   });
                                                 },
-                                                items: testProvider.payload.data
-                                                    .map<
-                                                        DropdownMenuItem<
-                                                            Datum>>((value) {
-                                                  return DropdownMenuItem<
-                                                          Datum>(
-                                                      value: value,
-                                                      child: Text(
-                                                          ' ${value.group_name}'));
+                                                items: testProvider.payload.data.map<DropdownMenuItem<Datum>>((value) {
+                                                  return DropdownMenuItem<Datum>(value: value,child: Text(' ${value.group_name}'));
                                                 }).toList(),
                                               ),
                                             ),
@@ -185,9 +181,7 @@ class firstState extends State<first> {
                                               decoration: InputDecoration(
                                                 labelText: 'ChooseCompany',
                                               ),
-                                              child: DropdownButton<Datum>(
-                                                value:
-                                                    testProvider.dropdownValue2,
+                                              child: DropdownButton<Datum>(value:testProvider.dropdownValue2,
                                                 isExpanded: true,
                                                 icon: Icon(
                                                     Icons.check_circle_outline),
@@ -201,25 +195,12 @@ class firstState extends State<first> {
                                                 ),
                                                 onChanged: (Datum newValue) {
                                                   setState(() {
-                                                    testProvider
-                                                            .dropdownValue2 =
-                                                        newValue;
-                                                    debugPrint(testProvider
-                                                        .dropdownValue2
-                                                        .comp_code);
+                                                    testProvider.dropdownValue2 =newValue;
+                                                    debugPrint(testProvider.dropdownValue2.comp_code);
                                                   });
                                                 },
-                                                items: testProvider
-                                                    .payload2.data
-                                                    .map<
-                                                            DropdownMenuItem<
-                                                                Datum>>(
-                                                        (Datum value) {
-                                                  return DropdownMenuItem<
-                                                          Datum>(
-                                                      value: value,
-                                                      child: Text(
-                                                          ' ${value.comp_name}'));
+                                                items: testProvider.payload2.data.map<DropdownMenuItem<Datum>>((Datum value) {
+                                                  return DropdownMenuItem<Datum>(value: value,child: Text(' ${value.comp_name}'));
                                                 }).toList(),
                                               ),
                                             ),
@@ -229,9 +210,7 @@ class firstState extends State<first> {
                                               decoration: InputDecoration(
                                                 labelText: 'Choose Branch',
                                               ),
-                                              child: DropdownButton<Datum>(
-                                                value:
-                                                    testProvider.dropdownValue3,
+                                              child: DropdownButton<Datum>(value:testProvider.dropdownValue3,
                                                 isExpanded: true,
                                                 icon: Icon(
                                                     Icons.check_circle_outline),
@@ -245,25 +224,12 @@ class firstState extends State<first> {
                                                 ),
                                                 onChanged: (Datum newValue) {
                                                   setState(() {
-                                                    testProvider
-                                                            .dropdownValue3 =
-                                                        newValue;
-                                                    debugPrint(testProvider
-                                                        .dropdownValue3
-                                                        .branch_code);
+                                                    testProvider.dropdownValue3 = newValue;
+                                                    debugPrint(testProvider.dropdownValue3.branch_code);
                                                   });
                                                 },
-                                                items: testProvider
-                                                    .payload3.data
-                                                    .map<
-                                                            DropdownMenuItem<
-                                                                Datum>>(
-                                                        (Datum value) {
-                                                  return DropdownMenuItem<
-                                                          Datum>(
-                                                      value: value,
-                                                      child: Text(
-                                                          ' ${value.branch_name}'));
+                                                items: testProvider.payload3.data.map<DropdownMenuItem<Datum>>((Datum value) {
+                                                  return DropdownMenuItem<Datum>(value: value,child: Text(' ${value.branch_name}'));
                                                 }).toList(),
                                               ),
                                             ),
@@ -273,9 +239,7 @@ class firstState extends State<first> {
                                               decoration: InputDecoration(
                                                 labelText: 'Choose Year',
                                               ),
-                                              child: DropdownButton<Datum>(
-                                                value:
-                                                    testProvider.dropdownValue4,
+                                              child: DropdownButton<Datum>(value:testProvider.dropdownValue4,
                                                 isExpanded: true,
                                                 icon: Icon(
                                                     Icons.check_circle_outline),
@@ -289,29 +253,52 @@ class firstState extends State<first> {
                                                 ),
                                                 onChanged: (Datum newValue) {
                                                   setState(() {
-                                                    testProvider
-                                                            .dropdownValue4 =
-                                                        newValue;
-                                                    debugPrint(testProvider
-                                                        .dropdownValue4
-                                                        .period_year);
+                                                    testProvider.dropdownValue4 = newValue;
+                                                    debugPrint(testProvider.dropdownValue4.period_year);
                                                   });
                                                 },
-                                                items: testProvider
-                                                    .payload4.data
-                                                    .map<
-                                                            DropdownMenuItem<
-                                                                Datum>>(
-                                                        (Datum value) {
-                                                  return DropdownMenuItem<
-                                                          Datum>(
+                                                items: testProvider.payload4.data.map<DropdownMenuItem<Datum>>((Datum value) {
+                                                  return DropdownMenuItem<Datum>(
                                                       value: value,
-                                                      child: Text(
-                                                          ' ${value.period_year}'));
+                                                      child: Text(' ${value.period_year}'));
                                                 }).toList(),
                                               ),
                                             ),
                                           ),
+                                          // Container(
+                                          //   child: InputDecorator(
+                                          //     decoration: InputDecoration(
+                                          //       labelText: 'Choose Loan',
+                                          //     ),
+                                          //     child: DropdownButton<dynamic>(
+                                          //       value:
+                                          //       testProvider.dropdownValue5,
+                                          //       isExpanded: true,
+                                          //       icon: Icon(
+                                          //           Icons.check_circle_outline),
+                                          //       iconSize: 15,
+                                          //       // elevation: 15,
+                                          //       style: TextStyle(
+                                          //           color: Colors.deepPurple),
+                                          //       underline: Container(
+                                          //         height: 2,
+                                          //         color: Colors.blue[300],
+                                          //       ),
+                                          //       onChanged: (newValue) {
+                                          //         setState(() {
+                                          //           testProvider.dropdownValue5 = newValue;
+                                          //           debugPrint(testProvider.dropdownValue5.loan_code);
+                                          //
+                                          //         });
+                                          //       },
+                                          //       items: testProvider.payload5.data
+                                          //           .map<DropdownMenuItem<Datum>>((value) {
+                                          //         return
+                                          //           DropdownMenuItem<Datum>(value: value,child: Text(' ${value.loan_name}'));
+                                          //       }).toList(),
+                                          //     ),
+                                          //   ),
+                                          // ),
                                         ],
                                       )
                               ],
